@@ -1,19 +1,31 @@
 """
-All flows are right to left
+Given a threading for a 4 shaft draft, find a 3 heddle threading for rigid heddle
+
+TODO: find way to rate a threading, and use chooser to remap shafts and see if it can
+find a higher rated threading
+
+Possible scoring ideas:
+ * if we can use more holes on the front heddle
+ * if the number of threads in slots is more consistent from slot to slot
+ * aim for a particular ends per dent
+ * maximizing ends per dent
+
+All flows are left to right
 
 ===>
+HEDDLE           3           2          1
 
-    1           2          3
-   ===         ===        ===
-       \     /      \    /
-       4\   /5      6\  /7 
-         \ /          \/
-  8:O          9:O        10:O  
-      \      /     \      / 
-     11\    /12   13\    /14
-        \  /         \  /
-   ===         ===        ===  
-    15          16         17
+                 1           2          3
+backbeam        ===         ===        ===     front apron
+                    \     /      \    /
+                    4\   /5      6\  /7 
+                      \ /          \/
+backbeam       8:O          9:O        10:O    front apron 
+                   \      /     \      / 
+                  11\    /12   13\    /14
+                     \  /         \  /
+backbeam        ===         ===        ===     front apron 
+                 15          16         17
 
 """
 
@@ -24,7 +36,7 @@ class Path:
         self.tags = tags
         self.excludes = set(excludes)
 
-
+# paths that a given shaft could go through from back beam to front.
 shaft_paths = {
     1: [
         Path(path=[15, 16, 14, 10], tags=[14], excludes=[8, 11, 12, 13]),
